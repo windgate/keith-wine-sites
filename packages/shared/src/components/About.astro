@@ -1,0 +1,48 @@
+---
+interface Props {
+  id?: string;
+  heading: string;
+  personName?: string | null;
+  personTitle?: string | null;
+  photo?: string | null;
+  body?: string | null;
+}
+
+const { id = 'about', heading, personName, personTitle, photo, body } = Astro.props;
+const paragraphs = (body ?? '')
+  .split(/\n\s*\n/)
+  .map((p) => p.trim())
+  .filter(Boolean);
+---
+
+<section class="section" id={id}>
+  <div class="wrap">
+    <h2>{heading}</h2>
+    <div class:list={['about-layout', { 'has-photo': Boolean(photo) }]}>
+      {
+        photo && (
+          <div>
+            <img src={photo} alt={personName ?? heading} />
+            {(personName || personTitle) && (
+              <p class="person">
+                {personName}
+                {personName && personTitle && ' / '}
+                {personTitle}
+              </p>
+            )}
+          </div>
+        )
+      }
+      <div>
+        {!photo && (personName || personTitle) && (
+          <p class="person">
+            {personName}
+            {personName && personTitle && ' / '}
+            {personTitle}
+          </p>
+        )}
+        {paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </div>
+</section>

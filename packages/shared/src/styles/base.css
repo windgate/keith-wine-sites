@@ -1,0 +1,445 @@
+/* Shared base styles. Each site sets its own colors through the CSS variables
+   passed in from BaseLayout (--accent, --accent-dark, --paper, --ink). */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--accent-dark);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: clamp(1.9rem, 4vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+}
+
+h3 {
+  font-size: 1.15rem;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+.wrap {
+  width: min(100% - 2rem, 62rem);
+  margin-inline: auto;
+}
+
+.section {
+  padding: 3.5rem 0;
+}
+
+.section:nth-of-type(even) {
+  background: var(--paper-alt);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -4rem;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.5rem 0.9rem;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* Navigation */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+
+.site-nav .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding: 0.6rem 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.brand img {
+  max-height: 2.75rem;
+  width: auto;
+}
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav ul a {
+  display: inline-block;
+  padding: 0.35rem 0;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav ul a:hover,
+.site-nav ul a:focus-visible {
+  border-bottom-color: var(--accent);
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  color: #fff;
+  background: var(--accent-dark);
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero .hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+}
+
+.hero .wrap {
+  position: relative;
+  padding: clamp(4rem, 12vw, 8rem) 0;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.hero figcaption {
+  position: relative;
+  font-size: 0.85rem;
+  padding: 0 1rem 1rem;
+  opacity: 0.9;
+}
+
+.hero figure {
+  margin: 0;
+}
+
+/* Text sections */
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.about-layout {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 48rem) {
+  .about-layout.has-photo {
+    grid-template-columns: 16rem 1fr;
+    align-items: start;
+  }
+}
+
+.about-layout img {
+  border-radius: 0.25rem;
+  width: 100%;
+}
+
+.person {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin: 0.5rem 0 0;
+}
+
+.intro {
+  max-width: 46rem;
+}
+
+/* Wines */
+.wine-grid {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+
+.wine-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 0.25rem;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.section:nth-of-type(even) .wine-card {
+  background: #fff;
+}
+
+.wine-card img {
+  margin: 0 auto 0.75rem;
+  max-height: 14rem;
+  width: auto;
+}
+
+.wine-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+/* Allies */
+.ally-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.ally-list img {
+  max-height: 3.5rem;
+  width: auto;
+}
+
+.ally-list a {
+  display: inline-block;
+}
+
+.pullquote {
+  margin: 2.5rem auto 0;
+  max-width: 40rem;
+  text-align: center;
+  font-style: italic;
+}
+
+.pullquote cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
+.pullquote cite::before {
+  content: '\2014\00a0';
+}
+
+/* Sales by country */
+.stats {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.stats li {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr 6rem;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.stats .bar {
+  background: var(--rule);
+  height: 0.9rem;
+  border-radius: 0.2rem;
+  overflow: hidden;
+}
+
+.stats .bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+.stats .value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.country-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.9rem;
+}
+
+/* Contact */
+.contact-layout {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 48rem) {
+  .contact-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+address {
+  font-style: normal;
+}
+
+.people {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.contact-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.25rem;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  font: inherit;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid #8a8a8a;
+  border-radius: 0.2rem;
+  background: #fff;
+  color: #1a1a1a;
+}
+
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible,
+.contact-form button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.contact-form button {
+  font: inherit;
+  font-weight: 700;
+  justify-self: start;
+  padding: 0.65rem 1.6rem;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background: var(--accent-dark);
+}
+
+.hp {
+  position: absolute;
+  left: -9999px;
+}
+
+.form-status {
+  min-height: 1.5rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--accent-dark);
+  color: #fff;
+  padding: 2rem 0;
+  font-size: 0.95rem;
+}
+
+.site-footer a {
+  color: #fff;
+}
+
+.site-footer p {
+  margin: 0 0 0.35rem;
+}

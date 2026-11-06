@@ -1,0 +1,42 @@
+---
+interface Ally {
+  name: string;
+  url: string;
+  logo?: string | null;
+}
+
+interface Props {
+  id?: string;
+  heading?: string | null;
+  allies: Ally[];
+  quote?: string | null;
+  quoteAuthor?: string | null;
+}
+
+const { id = 'allies', heading, allies, quote, quoteAuthor } = Astro.props;
+---
+
+<section class="section" id={id}>
+  <div class="wrap">
+    {heading && <h2>{heading}</h2>}
+    <ul class="ally-list">
+      {
+        allies.map((ally) => (
+          <li>
+            <a href={ally.url} rel="noopener">
+              {ally.logo ? <img src={ally.logo} alt={ally.name} loading="lazy" /> : ally.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      quote && (
+        <blockquote class="pullquote">
+          <p>{quote}</p>
+          {quoteAuthor && <cite>{quoteAuthor}</cite>}
+        </blockquote>
+      )
+    }
+  </div>
+</section>

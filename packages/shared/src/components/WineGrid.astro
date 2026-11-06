@@ -1,0 +1,43 @@
+---
+interface Wine {
+  name: string;
+  country?: string | null;
+  image?: string | null;
+}
+
+interface Props {
+  id?: string;
+  heading: string;
+  intro?: string | null;
+  wines: Wine[];
+}
+
+const { id = 'wines', heading, intro, wines } = Astro.props;
+const introParagraphs = (intro ?? '')
+  .split(/\n\s*\n/)
+  .map((p) => p.trim())
+  .filter(Boolean);
+---
+
+<section class="section" id={id}>
+  <div class="wrap">
+    <h2>{heading}</h2>
+    {
+      introParagraphs.length > 0 && (
+        <div class="intro">
+          {introParagraphs.map((p) => <p>{p}</p>)}
+        </div>
+      )
+    }
+    <ul class="wine-grid">
+      {
+        wines.map((wine) => (
+          <li class="wine-card">
+            {wine.image && <img src={wine.image} alt="" loading="lazy" />}
+            <h3>{wine.name}</h3>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

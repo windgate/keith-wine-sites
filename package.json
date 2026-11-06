@@ -1,0 +1,16 @@
+{
+  "name": "keith-wine-sites",
+  "private": true,
+  "description": "Daqopa Brands and Elevens Imports: two static Astro sites sharing one codebase",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:daqopa": "npm run dev -w @keith/daqopa",
+    "dev:elevens": "npm run dev -w @keith/elevens",
+    "build:daqopa": "npm run build -w @keith/daqopa",
+    "build:elevens": "npm run build -w @keith/elevens",
+    "build": "npm run build:daqopa && npm run build:elevens"
+  }
+}

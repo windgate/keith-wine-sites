@@ -1,0 +1,101 @@
+---
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+import BaseLayout from '@keith/shared/layouts/BaseLayout.astro';
+import Nav from '@keith/shared/components/Nav.astro';
+import Hero from '@keith/shared/components/Hero.astro';
+import About from '@keith/shared/components/About.astro';
+import WineGrid from '@keith/shared/components/WineGrid.astro';
+import Allies from '@keith/shared/components/Allies.astro';
+import Contact from '@keith/shared/components/Contact.astro';
+import Footer from '@keith/shared/components/Footer.astro';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+
+const [site, hero, about, wineSection, alliesSection, contactSection, wineEntries, allyEntries] =
+  await Promise.all([
+    reader.singletons.site.read(),
+    reader.singletons.hero.read(),
+    reader.singletons.about.read(),
+    reader.singletons.wineSection.read(),
+    reader.singletons.alliesSection.read(),
+    reader.singletons.contactSection.read(),
+    reader.collections.wines.all(),
+    reader.collections.allies.all(),
+  ]);
+
+if (!site || !hero || !about || !wineSection || !contactSection) {
+  throw new Error('Missing content. Check the files in apps/daqopa/src/content.');
+}
+
+const byOrder = (a: { entry: { order: number } }, b: { entry: { order: number } }) =>
+  a.entry.order - b.entry.order;
+
+const wines = wineEntries.sort(byOrder).map(({ entry }) => ({
+  name: entry.name,
+  country: entry.country,
+  image: entry.image,
+}));
+const allies = allyEntries.sort(byOrder).map(({ entry }) => ({
+  name: entry.name,
+  url: entry.url,
+  logo: entry.logo,
+}));
+
+const brandName = site.brandName || 'Daqopa Brands';
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '#about' },
+  { label: 'Portfolio', href: '#portfolio' },
+  { label: 'Allies', href: '#allies' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<BaseLayout
+  title={site.pageTitle}
+  description={site.description}
+  shareImage={site.shareImage}
+  siteName={brandName}
+  theme={{ accent: '#7a1f33', accentDark: '#4a1220' }}
+>
+  <Nav slot="nav" brandName={brandName} logo={site.logo} links={navLinks} />
+
+  <Hero
+    heading={hero.heading}
+    tagline={hero.tagline}
+    image={hero.image}
+    imageCaption={hero.imageCaption}
+  />
+  <About
+    heading={about.heading}
+    personName={about.personName}
+    personTitle={about.personTitle}
+    photo={about.photo}
+    body={about.body}
+  />
+  <WineGrid id="portfolio" heading={wineSection.heading} intro={wineSection.intro} wines={wines} />
+  <Allies
+    heading={alliesSection?.heading}
+    allies={allies}
+    quote={alliesSection?.quote}
+    quoteAuthor={alliesSection?.quoteAuthor}
+  />
+  <Contact
+    heading={contactSection.heading}
+    intro={contactSection.intro}
+    formHeading={contactSection.formHeading}
+    people={contactSection.people}
+    quote={contactSection.quote}
+    quoteAuthor={contactSection.quoteAuthor}
+    formName="daqopa-contact"
+  />
+
+  <Footer
+    slot="footer"
+    brandName={brandName}
+    siblingName={site.siblingName}
+    siblingUrl={site.siblingUrl}
+  />
+</BaseLayout>

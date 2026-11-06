@@ -1,0 +1,23 @@
+---
+interface Props {
+  brandName: string;
+  siblingName?: string | null;
+  siblingUrl?: string | null;
+}
+
+const { brandName, siblingName, siblingUrl } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; {year} {brandName}. All rights reserved.</p>
+    {
+      siblingName && siblingUrl && (
+        <p>
+          Also from Keith Johnsen: <a href={siblingUrl}>{siblingName}</a>
+        </p>
+      )
+    }
+  </div>
+</footer>

@@ -1,0 +1,36 @@
+---
+import type { NavLink } from '../site-defaults';
+
+interface Props {
+  brandName: string;
+  logo?: string | null;
+  links: NavLink[];
+}
+
+const { brandName, logo, links } = Astro.props;
+---
+
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="/">
+      {
+        logo ? (
+          <img src={logo} alt={brandName} height="44" />
+        ) : (
+          <span>{brandName}</span>
+        )
+      }
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

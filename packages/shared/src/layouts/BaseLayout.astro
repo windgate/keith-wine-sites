@@ -1,0 +1,70 @@
+---
+import '../styles/base.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Absolute or root-relative URL of the social sharing image. */
+  shareImage?: string | null;
+  siteName?: string;
+  /** Brand colors for this site. */
+  theme: {
+    accent: string;
+    accentDark: string;
+    paper?: string;
+    paperAlt?: string;
+    ink?: string;
+  };
+}
+
+const {
+  title,
+  description = '',
+  shareImage = null,
+  siteName = '',
+  theme,
+} = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const imageUrl = shareImage
+  ? new URL(shareImage, Astro.site ?? Astro.url).href
+  : undefined;
+
+const vars = [
+  `--accent:${theme.accent}`,
+  `--accent-dark:${theme.accentDark}`,
+  `--paper:${theme.paper ?? '#fbf8f3'}`,
+  `--paper-alt:${theme.paperAlt ?? '#f1ebe1'}`,
+  `--ink:${theme.ink ?? '#2a2523'}`,
+  `--muted:#5c5551`,
+  `--rule:#d9d0c3`,
+].join(';');
+---
+
+<!doctype html>
+<html lang="en" style={vars}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    {canonical && <meta property="og:url" content={canonical} />}
+    {siteName && <meta property="og:site_name" content={siteName} />}
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    <meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot name="nav" />
+    <main id="main">
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>

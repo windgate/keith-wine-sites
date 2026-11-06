@@ -1,0 +1,42 @@
+---
+interface Row {
+  country: string;
+  bottles?: number | null;
+}
+
+interface Props {
+  id?: string;
+  heading: string;
+  rows: Row[];
+}
+
+const { id = 'supply', heading, rows } = Astro.props;
+const withFigures = rows.filter((r) => typeof r.bottles === 'number' && r.bottles > 0);
+const max = Math.max(1, ...withFigures.map((r) => r.bottles as number));
+const format = new Intl.NumberFormat('en-US');
+---
+
+<section class="section" id={id}>
+  <div class="wrap">
+    <h2>{heading}</h2>
+    {
+      withFigures.length > 0 ? (
+        <ul class="stats">
+          {withFigures.map((r) => (
+            <li>
+              <span>{r.country}</span>
+              <span class="bar" aria-hidden="true">
+                <span style={`width:${Math.round(((r.bottles as number) / max) * 100)}%`} />
+              </span>
+              <span class="value">{format.format(r.bottles as number)}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul class="country-list">
+          {rows.map((r) => <li>{r.country}</li>)}
+        </ul>
+      )
+    }
+  </div>
+</section>

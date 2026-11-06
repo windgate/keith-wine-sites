@@ -1,0 +1,132 @@
+---
+import { office } from '../site-defaults';
+
+interface Person {
+  name: string;
+  title?: string | null;
+}
+
+interface Props {
+  id?: string;
+  heading: string;
+  intro?: string | null;
+  formHeading?: string | null;
+  people?: Person[];
+  showEmail?: boolean;
+  quote?: string | null;
+  quoteAuthor?: string | null;
+  /** Netlify form name. Keep it different on each site. */
+  formName: string;
+}
+
+const {
+  id = 'contact',
+  heading,
+  intro,
+  formHeading,
+  people = [],
+  showEmail = true,
+  quote,
+  quoteAuthor,
+  formName,
+} = Astro.props;
+---
+
+<section class="section" id={id}>
+  <div class="wrap">
+    <h2>{heading}</h2>
+    {intro && <p class="intro">{intro}</p>}
+    <div class="contact-layout">
+      <div>
+        {
+          people.length > 0 && (
+            <ul class="people">
+              {people.map((p) => (
+                <li>
+                  <strong>{p.name}</strong>
+                  {p.title && <span> / {p.title}</span>}
+                </li>
+              ))}
+            </ul>
+          )
+        }
+        <address>
+          {office.addressLines.map((line) => <div>{line}</div>)}
+        </address>
+        <p>
+          Office <a href={office.phoneHref}>{office.phoneDisplay}</a>
+        </p>
+        {
+          showEmail && (
+            <p>
+              <a href={`mailto:${office.email}`}>{office.email}</a>
+            </p>
+          )
+        }
+        {
+          quote && (
+            <blockquote class="pullquote" style="text-align:left;margin-left:0">
+              <p>{quote}</p>
+              {quoteAuthor && <cite>{quoteAuthor}</cite>}
+            </blockquote>
+          )
+        }
+      </div>
+      <div>
+        {formHeading && <h3>{formHeading}</h3>}
+        <form
+          class="contact-form"
+          name={formName}
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          data-contact-form
+        >
+          <input type="hidden" name="form-name" value={formName} />
+          <p class="hp" aria-hidden="true">
+            <label>Do not fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </p>
+          <label>
+            Name
+            <input type="text" name="name" autocomplete="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="6" required></textarea>
+          </label>
+          <button type="submit">Send message</button>
+          <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Send the form in the background so the visitor stays on the page. If this
+  // fails, the browser falls back to a normal form post that Netlify handles.
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const status = document.querySelector<HTMLElement>('[data-form-status]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (status) status.textContent = 'Sending...';
+    try {
+      const body = new URLSearchParams(new FormData(form) as unknown as Record<string, string>);
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
+      if (!response.ok) throw new Error(String(response.status));
+      form.reset();
+      if (status) status.textContent = 'Thank you. Your message has been sent.';
+    } catch {
+      if (status) status.textContent = 'Sorry, that did not go through. Please try again or call the office.';
+    }
+  });
+</script>

@@ -1,0 +1,21 @@
+---
+interface Props {
+  heading: string;
+  tagline?: string | null;
+  image?: string | null;
+  imageCaption?: string | null;
+}
+
+const { heading, tagline, image, imageCaption } = Astro.props;
+---
+
+<section class="hero" id="top">
+  <figure>
+    {image && <img class="hero-image" src={image} alt="" />}
+    <div class="wrap">
+      <h1>{heading}</h1>
+      {tagline && <p>{tagline}</p>}
+    </div>
+    {imageCaption && <figcaption>{imageCaption}</figcaption>}
+  </figure>
+</section>

@@ -9,7 +9,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://elevensimports.com',
   integrations: [react(), keystatic(), sitemap()],
-  adapter: netlify(),
+  // devFeatures off: skip Netlify's local edge-function emulator during
+  // `astro dev`. This site uses none, and the emulator needs Deno.
+  adapter: netlify({ devFeatures: false }),
   vite: {
     ssr: { noExternal: ['@keith/shared'] },
   },

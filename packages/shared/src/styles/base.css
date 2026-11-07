@@ -92,6 +92,41 @@ p {
   }
 }
 
+/* Line art on a white background (the wines section). "multiply" turns the
+   white into the page color, so no box shows around the picture. */
+.section.has-art {
+  background: var(--paper) var(--section-bg) center / cover no-repeat;
+  background-blend-mode: multiply;
+}
+
+/* Desktop: the text sits on top of the picture, so a light wash of the page
+   color softens it and keeps the paragraphs easy to read. */
+@media (min-width: 48rem) {
+  .section.has-art {
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(
+        color-mix(in srgb, var(--paper) 58%, transparent),
+        color-mix(in srgb, var(--paper) 58%, transparent)
+      ),
+      var(--section-bg);
+    background-repeat: no-repeat;
+    background-size: auto, cover;
+    background-position: center, center;
+    background-blend-mode: normal, multiply;
+  }
+}
+
+/* Phones: the text is tall, so show the whole picture below the content,
+   at full strength, with room for it under the last card. */
+@media (max-width: 47.99rem) {
+  .section.has-art {
+    background-size: 100% auto;
+    background-position: center bottom;
+    padding-bottom: calc(45.5vw + 2rem);
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

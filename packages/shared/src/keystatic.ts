@@ -68,6 +68,12 @@ export const about = singleton({
       directory: 'public/images/about',
       publicPath: '/images/about/',
     }),
+    background: fields.image({
+      label: 'Section background image (optional)',
+      description: 'Shown behind the text. Keep it light so the text stays readable.',
+      directory: 'public/images/about',
+      publicPath: '/images/about/',
+    }),
     body: fields.text({
       label: 'Body',
       multiline: true,

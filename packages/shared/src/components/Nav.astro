@@ -34,3 +34,15 @@ const { brandName, logo, links } = Astro.props;
     </nav>
   </div>
 </header>
+
+<script>
+  // The nav is taller on phones, where its links wrap. Measure it so the hero
+  // can fill exactly the rest of the screen, and anchor links stop below it.
+  const nav = document.querySelector<HTMLElement>('.site-nav');
+  if (nav) {
+    const setHeight = () =>
+      document.documentElement.style.setProperty('--nav-h', `${nav.offsetHeight}px`);
+    setHeight();
+    new ResizeObserver(setHeight).observe(nav);
+  }
+</script>

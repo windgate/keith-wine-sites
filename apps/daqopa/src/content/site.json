@@ -2,6 +2,8 @@
   "brandName": "Daqopa Brands",
   "pageTitle": "Daqopa Brands | Independent Pacific Northwest Wine Importer",
   "description": "Independent Pacific Northwest wine importer sharing authentic and artisanal treasures: real wineries, cool varietals, amazing values.",
+  "logo": "/images/brand/logo.png",
+  "shareImage": "/images/brand/shareImage.png",
   "siblingName": "Elevens Imports",
   "siblingUrl": "https://elevensimports.com"
 }

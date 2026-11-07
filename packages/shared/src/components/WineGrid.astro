@@ -9,17 +9,23 @@ interface Props {
   id?: string;
   heading: string;
   intro?: string | null;
+  /** Optional line-art image shown behind the whole section. */
+  background?: string | null;
   wines: Wine[];
 }
 
-const { id = 'wines', heading, intro, wines } = Astro.props;
+const { id = 'wines', heading, intro, background, wines } = Astro.props;
 const introParagraphs = (intro ?? '')
   .split(/\n\s*\n/)
   .map((p) => p.trim())
   .filter(Boolean);
 ---
 
-<section class="section" id={id}>
+<section
+  class:list={['section', { 'has-art': Boolean(background) }]}
+  id={id}
+  style={background ? `--section-bg:url('${background}')` : undefined}
+>
   <div class="wrap">
     <h2>{heading}</h2>
     {

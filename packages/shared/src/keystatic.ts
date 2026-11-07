@@ -93,6 +93,13 @@ export const wineSection = singleton({
       multiline: true,
       description: 'Leave a blank line between paragraphs.',
     }),
+    background: fields.image({
+      label: 'Section background image (optional)',
+      description:
+        'Shown behind the wines. Works best as light line art on a white background; keep the file under about 500 KB.',
+      directory: 'public/images/wines',
+      publicPath: '/images/wines/',
+    }),
   },
 });
 

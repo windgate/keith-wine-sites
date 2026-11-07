@@ -7,6 +7,12 @@ interface Props {
   /** Absolute or root-relative URL of the social sharing image. */
   shareImage?: string | null;
   siteName?: string;
+  /**
+   * Which favicon files the site provides in its public folder:
+   * 'svg' = favicon.svg; 'png' = favicon.ico, favicon-32x32.png,
+   * favicon-192x192.png and apple-touch-icon.png.
+   */
+  favicon?: 'svg' | 'png';
   /** Brand colors for this site. */
   theme: {
     accent: string;
@@ -22,6 +28,7 @@ const {
   description = '',
   shareImage = null,
   siteName = '',
+  favicon = 'svg',
   theme,
 } = Astro.props;
 
@@ -49,7 +56,18 @@ const vars = [
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {canonical && <link rel="canonical" href={canonical} />}
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {
+      favicon === 'png' ? (
+        <>
+          <link rel="icon" href="/favicon.ico" sizes="48x48" />
+          <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+          <link rel="icon" href="/favicon-192x192.png" type="image/png" sizes="192x192" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        </>
+      ) : (
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      )
+    }
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}

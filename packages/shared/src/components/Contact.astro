@@ -32,6 +32,12 @@ const {
   quoteAuthor,
   formName,
 } = Astro.props;
+
+// Phone numbers and email addresses are stored scrambled (base64) in the page
+// and put together by a small script in the visitor's browser. Simple bots
+// that only read the page's HTML never see them.
+const enc = (value: string) => Buffer.from(value, 'utf8').toString('base64');
+const telHref = (value: string) => `tel:+${value.replace(/\D/g, '')}`;
 ---
 
 <section class="section" id={id}>
@@ -48,15 +54,14 @@ const {
                   <strong>{p.name}</strong>
                   {p.title && <span> / {p.title}</span>}
                   {p.cell && (
-                    <div>
-                      Cellular <a href={`tel:+${p.cell.replace(/\D/g, '')}`}>{p.cell}</a>
-                    </div>
+                    <div
+                      data-protect="tel"
+                      data-label="Cellular"
+                      data-v={enc(p.cell)}
+                      data-h={enc(telHref(p.cell))}
+                    />
                   )}
-                  {p.email && (
-                    <div>
-                      <a href={`mailto:${p.email}`}>{p.email}</a>
-                    </div>
-                  )}
+                  {p.email && <div data-protect="mail" data-v={enc(p.email)} />}
                 </li>
               ))}
             </ul>
@@ -65,16 +70,15 @@ const {
         <address>
           {office.addressLines.map((line) => <div>{line}</div>)}
         </address>
-        <p>
-          Office <a href={office.phoneHref}>{office.phoneDisplay}</a>
+        <p
+          data-protect="tel"
+          data-label="Office"
+          data-v={enc(office.phoneDisplay)}
+          data-h={enc(office.phoneHref)}
+        >
         </p>
-        {
-          showEmail && (
-            <p>
-              <a href={`mailto:${office.email}`}>{office.email}</a>
-            </p>
-          )
-        }
+        {showEmail && <p data-protect="mail" data-v={enc(office.email)} />}
+        <noscript><p>Please use the contact form to reach us.</p></noscript>
         {
           quote && (
             <blockquote class="pullquote" style="text-align:left;margin-left:0">
@@ -117,6 +121,19 @@ const {
     </div>
   </div>
 </section>
+
+<script>
+  // Put the phone numbers and email addresses together (see the note above).
+  document.querySelectorAll<HTMLElement>('[data-protect]').forEach((el) => {
+    const text = atob(el.dataset.v ?? '');
+    if (!text) return;
+    const link = document.createElement('a');
+    link.textContent = text;
+    link.href = el.dataset.protect === 'mail' ? `mailto:${text}` : atob(el.dataset.h ?? '');
+    el.textContent = el.dataset.label ? `${el.dataset.label} ` : '';
+    el.append(link);
+  });
+</script>
 
 <script>
   // Send the form in the background so the visitor stays on the page. If this

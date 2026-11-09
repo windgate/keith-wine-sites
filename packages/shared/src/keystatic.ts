@@ -44,7 +44,12 @@ export const hero = singleton({
   path: 'src/content/hero',
   format: { data: 'json' },
   schema: {
-    heading: fields.text({ label: 'Heading', validation: { isRequired: true } }),
+    heading: fields.text({
+      label: 'Heading',
+      multiline: true,
+      description: 'Press Enter to start a new line in the heading.',
+      validation: { isRequired: true },
+    }),
     tagline: fields.text({ label: 'Tagline', multiline: true }),
     image: fields.image({
       label: 'Hero image',

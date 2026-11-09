@@ -7,13 +7,17 @@ interface Props {
 }
 
 const { heading, tagline, image, imageCaption } = Astro.props;
+// A new line in the heading is shown as a line break.
+const headingLines = heading.split(/\r?\n/);
 ---
 
 <section class="hero" id="top">
   <figure>
     {image && <img class="hero-image" src={image} alt="" />}
     <div class="wrap">
-      <h1>{heading}</h1>
+      <h1>
+        {headingLines.map((line, i) => (i === 0 ? line : [<br />, line]))}
+      </h1>
       {tagline && <p>{tagline}</p>}
     </div>
     {imageCaption && <figcaption>{imageCaption}</figcaption>}

@@ -4,6 +4,8 @@ import { office } from '../site-defaults';
 interface Person {
   name: string;
   title?: string | null;
+  cell?: string | null;
+  email?: string | null;
 }
 
 interface Props {
@@ -45,6 +47,16 @@ const {
                 <li>
                   <strong>{p.name}</strong>
                   {p.title && <span> / {p.title}</span>}
+                  {p.cell && (
+                    <div>
+                      Cellular <a href={`tel:+${p.cell.replace(/\D/g, '')}`}>{p.cell}</a>
+                    </div>
+                  )}
+                  {p.email && (
+                    <div>
+                      <a href={`mailto:${p.email}`}>{p.email}</a>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>

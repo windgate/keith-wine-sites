@@ -128,6 +128,11 @@ export const contactSection = singleton({
       fields.object({
         name: fields.text({ label: 'Name' }),
         title: fields.text({ label: 'Title (optional)' }),
+        cell: fields.text({
+          label: 'Cellular phone (optional)',
+          description: 'Example: +1.206.419.0270',
+        }),
+        email: fields.text({ label: 'Email address (optional)' }),
       }),
       {
         label: 'People listed',

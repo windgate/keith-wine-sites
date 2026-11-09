@@ -2,5 +2,16 @@
   "heading": "Find Us",
   "intro": "We would love to hear from you. Reach out!",
   "formHeading": "Contact Us",
-  "people": [{ "name": "Keith Johnsen" }, { "name": "Kim Rookstool" }]
+  "people": [
+    {
+      "name": "Keith Johnsen",
+      "cell": "+1.206.419.0270",
+      "email": "keith.johnsen@daqopa.com"
+    },
+    {
+      "name": "Kim Rookstool",
+      "cell": "+1.425.894.9366",
+      "email": "corkkarma.kim@gmail.com"
+    }
+  ]
 }

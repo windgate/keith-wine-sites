@@ -489,6 +489,10 @@ address {
   margin: 1rem 0;
 }
 
+.people li + li {
+  margin-top: 0.9rem;
+}
+
 .contact-form {
   display: grid;
   gap: 1rem;

@@ -50,6 +50,15 @@ export const hero = singleton({
       description: 'Press Enter to start a new line in the heading.',
       validation: { isRequired: true },
     }),
+    textAlign: fields.select({
+      label: 'Title position',
+      description: 'Use "Left" to keep the title clear of people in the middle of the photo.',
+      options: [
+        { label: 'Centered', value: 'center' },
+        { label: 'Left', value: 'left' },
+      ],
+      defaultValue: 'center',
+    }),
     tagline: fields.text({ label: 'Tagline', multiline: true }),
     image: fields.image({
       label: 'Hero image',

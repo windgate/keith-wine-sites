@@ -4,14 +4,16 @@ interface Props {
   tagline?: string | null;
   image?: string | null;
   imageCaption?: string | null;
+  /** Where the title sits: centered (default) or at the left, clear of a subject in the middle of the photo. */
+  textAlign?: 'center' | 'left' | null;
 }
 
-const { heading, tagline, image, imageCaption } = Astro.props;
+const { heading, tagline, image, imageCaption, textAlign } = Astro.props;
 // A new line in the heading is shown as a line break.
 const headingLines = heading.split(/\r?\n/);
 ---
 
-<section class="hero" id="top">
+<section class:list={['hero', { 'hero-left': textAlign === 'left' }]} id="top">
   <figure>
     {image && <img class="hero-image" src={image} alt="" />}
     <div class="wrap">

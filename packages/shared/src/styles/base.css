@@ -292,6 +292,27 @@ p {
   padding: 0 1rem 1rem;
 }
 
+/* Title at the left, clear of people in the middle of the photo. On phones
+   the photo fills the screen, so the title moves up to the top instead. */
+.hero.hero-left {
+  text-align: left;
+}
+
+.hero.hero-left .wrap {
+  align-items: flex-start;
+}
+
+.hero.hero-left p {
+  margin-inline: 0;
+}
+
+@media (max-width: 47.99rem) {
+  .hero.hero-left .wrap {
+    justify-content: flex-start;
+    padding-top: 2rem;
+  }
+}
+
 /* Text sections */
 .eyebrow {
   text-transform: uppercase;

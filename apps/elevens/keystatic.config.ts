@@ -8,6 +8,13 @@ const sales = singleton({
   format: { data: 'json' },
   schema: {
     heading: fields.text({ label: 'Section heading', validation: { isRequired: true } }),
+    background: fields.image({
+      label: 'Section background image (optional)',
+      description:
+        'Shown behind the figures. A small repeating pattern tile (SVG or PNG) tiles across the section; a large picture also works.',
+      directory: 'public/images/sales',
+      publicPath: '/images/sales/',
+    }),
     rows: fields.array(
       fields.object({
         country: fields.text({ label: 'Country', validation: { isRequired: true } }),

@@ -93,6 +93,12 @@ p {
   }
 }
 
+/* A small repeating pattern tile behind a short section (sales by country).
+   The tile is semi-transparent, so it sits over the page color. */
+.section.has-pattern {
+  background: var(--paper) var(--section-bg) top left / auto repeat;
+}
+
 /* Line art on a white background (the wines section). "multiply" turns the
    white into the page color, so no box shows around the picture. */
 .section.has-art {

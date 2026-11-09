@@ -8,15 +8,20 @@ interface Props {
   id?: string;
   heading: string;
   rows: Row[];
+  background?: string | null;
 }
 
-const { id = 'supply', heading, rows } = Astro.props;
+const { id = 'supply', heading, rows, background } = Astro.props;
 const withFigures = rows.filter((r) => typeof r.bottles === 'number' && r.bottles > 0);
 const max = Math.max(1, ...withFigures.map((r) => r.bottles as number));
 const format = new Intl.NumberFormat('en-US');
 ---
 
-<section class="section" id={id}>
+<section
+  class:list={['section', background && 'has-pattern']}
+  id={id}
+  style={background ? `--section-bg: url('${background}')` : undefined}
+>
   <div class="wrap">
     <h2>{heading}</h2>
     {

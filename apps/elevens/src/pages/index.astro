@@ -76,7 +76,13 @@ const navLinks = [
     photo={about.photo}
     body={about.body}
   />
-  {sales && <SalesByCountry heading={sales.heading} rows={[...sales.rows]} />}
+  {sales && (
+    <SalesByCountry
+      heading={sales.heading}
+      rows={[...sales.rows]}
+      background={sales.background}
+    />
+  )}
   <Allies
     id="partners"
     heading={alliesSection?.heading}

@@ -1,1 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#1d4f6b"/><text x="32" y="45" font-family="Georgia, serif" font-size="38" font-weight="700" text-anchor="middle" fill="#fff">11</text></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 124 124">
+  <!-- Generator: Adobe Illustrator 30.4.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 226)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #30449c;
+      }
+    </style>
+  </defs>
+  <path class="st0" d="M90.39,6.96v109.49c19.81-10.24,33.36-30.9,33.36-54.74s-13.55-44.5-33.36-54.74Z"/>
+  <g>
+    <path class="st0" d="M33.91,6.96C14.09,17.2.54,37.86.54,61.7s13.55,44.5,33.36,54.74V6.96Z"/>
+    <path class="st0" d="M62.15.1c-2.06,0-4.09.11-6.09.3v122.6c2,.2,4.04.3,6.09.3s4.09-.11,6.09-.3V.4c-2-.2-4.04-.3-6.09-.3Z"/>
+  </g>
+</svg>

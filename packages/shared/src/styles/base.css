@@ -99,6 +99,30 @@ p {
   background: var(--paper) var(--section-bg) top left / auto repeat;
 }
 
+/* A photo behind a short section. A dark wash of the brand color keeps the
+   light text readable. */
+.section.has-photo {
+  color: #fff;
+  background:
+    linear-gradient(
+      color-mix(in srgb, var(--accent-dark) 72%, transparent),
+      color-mix(in srgb, var(--accent-dark) 72%, transparent)
+    ),
+    var(--section-bg) center / cover no-repeat;
+}
+
+.section.has-photo h2 {
+  color: #fff;
+}
+
+.section.has-photo .stats .bar {
+  background: rgb(255 255 255 / 0.22);
+}
+
+.section.has-photo .stats .bar span {
+  background: #fff;
+}
+
 /* Line art on a white background (the wines section). "multiply" turns the
    white into the page color, so no box shows around the picture. */
 .section.has-art {

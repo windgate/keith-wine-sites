@@ -1,38 +1,38 @@
 {
   "heading": "2017-2025 Wine Sales by Source Country, in Bottles",
-  "background": "/images/sales/background-white-85.svg",
+  "background": "/images/sales/sales-background.jpg",
   "rows": [
     {
       "country": "Spain",
-      "bottles": null
+      "bottles": 3983100
     },
     {
       "country": "Portugal",
-      "bottles": null
+      "bottles": 2468000
     },
     {
       "country": "Chile",
-      "bottles": null
+      "bottles": 2001000
     },
     {
       "country": "France",
-      "bottles": null
+      "bottles": 1362100
     },
     {
       "country": "Italy",
-      "bottles": null
+      "bottles": 416600
     },
     {
       "country": "Georgia",
-      "bottles": null
+      "bottles": 196000
     },
     {
       "country": "Argentina",
-      "bottles": null
+      "bottles": 153500
     },
     {
       "country": "New Zealand",
-      "bottles": null
+      "bottles": 72000
     }
   ]
 }

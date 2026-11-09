@@ -14,11 +14,12 @@ interface Props {
 const { id = 'supply', heading, rows, background } = Astro.props;
 const withFigures = rows.filter((r) => typeof r.bottles === 'number' && r.bottles > 0);
 const max = Math.max(1, ...withFigures.map((r) => r.bottles as number));
+const isTile = !!background && /\.svg$/i.test(background);
 const format = new Intl.NumberFormat('en-US');
 ---
 
 <section
-  class:list={['section', background && 'has-pattern']}
+  class:list={['section', background && (isTile ? 'has-pattern' : 'has-photo')]}
   id={id}
   style={background ? `--section-bg: url('${background}')` : undefined}
 >

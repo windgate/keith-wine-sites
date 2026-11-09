@@ -318,6 +318,17 @@ p {
   width: 100%;
 }
 
+.about-figure {
+  margin: 0;
+}
+
+.about-figure figcaption {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
 .person {
   font-size: 0.95rem;
   color: var(--muted);

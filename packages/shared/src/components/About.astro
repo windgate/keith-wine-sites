@@ -5,12 +5,15 @@ interface Props {
   personName?: string | null;
   personTitle?: string | null;
   photo?: string | null;
+  /** Small caption shown under the photo. */
+  photoCaption?: string | null;
   /** Optional image shown behind the whole section. */
   background?: string | null;
   body?: string | null;
 }
 
-const { id = 'about', heading, personName, personTitle, photo, background, body } = Astro.props;
+const { id = 'about', heading, personName, personTitle, photo, photoCaption, background, body } =
+  Astro.props;
 const paragraphs = (body ?? '')
   .split(/\n\s*\n/)
   .map((p) => p.trim())
@@ -27,8 +30,9 @@ const paragraphs = (body ?? '')
     <div class:list={['about-layout', { 'has-photo': Boolean(photo) }]}>
       {
         photo && (
-          <div>
-            <img src={photo} alt={personName ?? heading} />
+          <figure class="about-figure">
+            <img src={photo} alt={photoCaption ?? personName ?? heading} />
+            {photoCaption && <figcaption>{photoCaption}</figcaption>}
             {(personName || personTitle) && (
               <p class="person">
                 {personName}
@@ -36,7 +40,7 @@ const paragraphs = (body ?? '')
                 {personTitle}
               </p>
             )}
-          </div>
+          </figure>
         )
       }
       <div>

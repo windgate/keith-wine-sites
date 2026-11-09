@@ -68,6 +68,10 @@ export const about = singleton({
       directory: 'public/images/about',
       publicPath: '/images/about/',
     }),
+    photoCaption: fields.text({
+      label: 'Photo caption (optional)',
+      description: 'Shown in small type under the photo.',
+    }),
     background: fields.image({
       label: 'Section background image (optional)',
       description: 'Shown behind the text. Keep it light so the text stays readable.',
